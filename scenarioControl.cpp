@@ -165,21 +165,19 @@ void control_updateItemState() {
         cout << "Enter Selection: ";
         cin >> selection;
         
-        switch(selection) { 
-        case 0:
+        if (selection == 0)
             return;
-        case 1:
+        else if (selection == 1)
             ChangeItem::updateStatus(ChangeItem::ASSESSED, changeID);
-        case 2: 
+        else if (selection == 2)
             ChangeItem::updateStatus(ChangeItem::INPROGRESS, changeID);
-        case 3:
+        else if (selection == 3)
             ChangeItem::updateStatus(ChangeItem::DONE, changeID);
-        case 4:
+        else if (selection == 4)
             ChangeItem::updateStatus(ChangeItem::CANCELLED, changeID);
-        default:
+        else
             cout << "Invalid selection." << endl;
 
-        }
         std::cout << "Would you like to update another item state? (Y/N):  ";
         std::cin >> anotherUpdateItemState;
         } while (anotherUpdateItemState == 'Y');
