@@ -47,6 +47,9 @@ void control_createRelease() {
     char date[11];
     do {
         int n = Product::queryProducts();
+        if(n == -1){
+            return;
+        }
         cout<< "Enter the releaseID: \n";
         cin >> okay;
         cout << "Enter the date of the release (YYYY-MM-DD): \n";
@@ -81,13 +84,24 @@ void control_createRequest() {
         cin >> req;
 
         if(req == 'N') {
-            if(!Requester::createRequester()) {
-                cout << "User exists in system \n";
+            req = 'Y';
+                while((req == 'Y') && (!Requester::createRequester())) {
+                cout << "Try again? (Y//N) \n";
+                cin >> req;
+            }
+            if(req == 'N'){
+                return;
             }
         } 
         int i = Requester::queryRequesters();
+        if(i == -1){
+            return;
+        }
         const char* requester = Requester::getRequester(name, i);
         int v = Product::queryProducts();
+        if(v == -1){
+            return;
+        }
         cout << "Please input the date(YYYY-MM-DD): ";
         cin >> smallDate;
         const char* date = smallDate.c_str();
@@ -117,6 +131,9 @@ void control_viewItem() {
     do {
         int i;
         i = Product::queryProducts();
+        if(i == -1){
+            return;
+        }
         const char* charry = Product::getProduct(buffer,i);
         string str(charry);
         ChangeItem::displayChangeItems(str);
