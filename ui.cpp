@@ -116,10 +116,6 @@ void updateMenu() {
                 control_updateItemState();
                 break;
             case '2':
-                std::cout << "Enter the associated ChangeId of the ChangeItem: ";
-                std::cin >> changeID;
-                std::cout << "Enter a new priority (number between 1-5): ";
-                std::cin >> newPriority;
                 control_updateItemPriority();
                 break;
             case '0':
