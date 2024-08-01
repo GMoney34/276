@@ -122,6 +122,7 @@ int Product::queryProducts() {
     // the end of the file is reached
     while(input == "N"){
         if(!pfio.read(reinterpret_cast<char *>(buffer), 11)){
+            cout << "0) Exit" << endl;
             cout << "No more products" << endl;
             cout << "Enter selection: ";
             cin >> input;
