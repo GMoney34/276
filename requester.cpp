@@ -208,6 +208,7 @@ const char* Requester::getRequester(char* name, int n) {
  * Returns: int: The position of the selected requester
  **********************************************/
 int Requester::queryRequesters() {
+    rfio.clear();
     rfio.seekg(0);
     char buffer[31];
     int count = 0;
@@ -218,11 +219,11 @@ int Requester::queryRequesters() {
     // or select a product already listed.
     // Will break out of loop when customer selects a number or when
     // the end of the file is reached
-    rfio.clear();
     while(input == "N"){
         // if the read pointer cannot read anymore its reached the EOF and there are
         // no names left
         if(!rfio.read(reinterpret_cast<char *>(buffer), 31)){
+            cout << "0) Exit" << endl;
             cout << "No more names" << endl;
             cout << "Enter selection: ";
             cin >> input;
