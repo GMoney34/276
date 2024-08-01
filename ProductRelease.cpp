@@ -53,6 +53,7 @@ ProductRelease::ProductRelease(Product theProduct, const char* theReleaseId, con
     productName = theProduct;
     strcpy(releaseId, theReleaseId);
     strcpy(date, theDate);
+    releaseId[7] = '\0';
     date[10] = '\0';
 }
 

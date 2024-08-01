@@ -83,7 +83,7 @@ private:
     //=============================
 
     Product productName;         // The product associated with the release
-    char releaseId[7];           // The release ID
+    char releaseId[8];           // The release ID
     char date[11];               // The release date
 };
 

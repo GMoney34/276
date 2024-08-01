@@ -35,10 +35,11 @@ ChangeItem::ChangeItem() {}
  * - mail: The email of the requester
  * - dept: The department of the requester
  **********************************************/
-ChangeItem::ChangeItem(Product product, const char* n, State theState, int newPriority, const char* reportedDate) {
+ChangeItem::ChangeItem(Product product, const char* n, State theState, int newPriority, const char* reportedDate, ProductRelease changeRelease) {
     changeId = currentChangeIdCount++;
     priority = newPriority;
     productName = product;
+    anticipatedRelease = changeRelease;
     strncpy(description, n, 149);
     description[149] = '\0';
     changeItemState = theState;
@@ -189,12 +190,12 @@ ChangeItem ChangeItem::queryChangeItem(std::string product){
         }
         if (file.eof())
             std::cout << currentEntry + 1 << ") Add new ChangeItem\n";
-        std::cout << "To load next 20 descriptions enter 'N'" << std::endl;
+        std::cout << "To load next 20 descriptions enter 'N': ";
         std::cin >> input;
         if (input == "N"){
             if (file.eof()){
                 while (input == "N"){
-                    std::cout << "End of list must choose an option" << std::endl;
+                    std::cout << "End of list must choose an option";
                     std::cin >> input;
                 }
             }
@@ -205,7 +206,7 @@ ChangeItem ChangeItem::queryChangeItem(std::string product){
         }
         else{
             while (std::stoi(input) < 1 || std::stoi(input) > currentEntry + 1){
-                std::cout << "Not a valid option. Try again" << std::endl;
+                std::cout << "Not a valid option. Try again";
                 std::cin >> input;
             }
         break;
@@ -222,10 +223,8 @@ ChangeItem ChangeItem::queryChangeItem(std::string product){
         std::cin >>  itemDescription;
         if (itemDescription.length() > 40)
             itemDescription.substr(0, 40);
-        std::cout << std::endl;
         std::cout << "Enter a priority (number between 1-5): ";
         std::cin >> itemPriority;
-        std::cout << std::endl;
         while (itemPriority < 1 || itemPriority > 5){
             std::cout << "Not a valid priority. Try again: ";
             std::cin >> itemPriority;
@@ -235,14 +234,14 @@ ChangeItem ChangeItem::queryChangeItem(std::string product){
         std::cout << "2) In-Progress " << std::endl;
         std::cout << "3) Done " << std::endl;
         std::cout << "4) Cancelled " << std::endl;
-        std::cout << "Enter selection: " << std::endl;
+        std::cout << "Enter selection: ";
         std::cin >> intInput;
         while (intInput < 0 || intInput > 4){
             std::cout << "Not a valid option. Try again: " << std::endl;
             std::cout << "1) Assessed " << std::endl;
             std::cout << "2) In-Progress " << std::endl;
             std::cout << "3) Done " << std::endl;
-            std::cout << "4) Cancelled " << std::endl;
+            std::cout << "4) Cancelled ";
             std::cin >> intInput;
         }
         State itemState;
@@ -293,7 +292,8 @@ ChangeItem ChangeItem::queryChangeItem(std::string product){
         changeItemProduct.updateName(product.c_str());
         //Product changeItemProduct = Product(product.c_str());
         ProductRelease newRelease = ProductRelease (changeItemProduct, id.c_str(), idDate.c_str());
-        ChangeItem newChangeItem = ChangeItem(changeItemProduct, itemDescription.c_str(), itemState, itemPriority, idDate.c_str());
+        ProductRelease::createProductRelease(newRelease);
+        ChangeItem newChangeItem = ChangeItem(changeItemProduct, itemDescription.c_str(), itemState, itemPriority, idDate.c_str(), newRelease);
         createChangeItem(newChangeItem);
         std::cout << "ChangeItem Created!\n";
         return newChangeItem;
@@ -412,7 +412,7 @@ ChangeItem ChangeItem::displayChangeItems(std::string product){
                 counter++;
             }
         }
-        std::cout << "To load next 20 descriptions enter 'N'" << std::endl;
+        std::cout << "To load next 20 descriptions enter 'N': ";
         std::cin >> input;
         if (input == "N"){
             if (file.eof()){

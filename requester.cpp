@@ -39,7 +39,7 @@ Opened in initRequester(). */
  * Returns: bool: True if the file was opened successfully, otherwise false.
  **********************************************/
 bool Requester::initRequester() {
-    rfio.open("/Users/gurta/Downloads/NEWCMPT276/req.txt", ios::out | ios::in | ios::app | ios::binary);
+    rfio.open("req.txt", ios::out | ios::in | ios::app | ios::binary);
 
     if(!rfio.good()){
         cout << "File not opened... Please try again" << endl;

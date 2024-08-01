@@ -44,7 +44,7 @@ public:
     // Description: Default constructor for the ChangeItem class.
 
     //----------------------------------------------------------
-    ChangeItem(Product product, const char* n, State theState, int priority, const char* reportedDate);
+    ChangeItem(Product product, const char* n, State theState, int priority, const char* reportedDate, ProductRelease changeRelease);
     // Description: Parameterized constructor for creating a new ChangeItem object.
     // Parameters: 
     // - Product product: The product associated with the change item.

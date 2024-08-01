@@ -39,7 +39,7 @@ Opened in initProduct(). */
  * Returns: bool - True if the file is successfully opened and initialized, false otherwise.
  **********************************************/
 bool Product::initProduct() {
-    pfio.open("/Users/gurta/Downloads/NEWCMPT276/prod.txt", ios::out | ios::in | ios::app | ios::binary);
+    pfio.open("Product.txt", ios::out | ios::in | ios::app | ios::binary);
 
     if(!pfio.good()){
         cout << "File not opened... Please try again" << endl;
