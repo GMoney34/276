@@ -135,7 +135,6 @@ void control_updateItemState() {
     // Logic for updating change item state
     char anotherUpdateItemState = 'Y';
     do{
-        ChangeItem pr;
         int changeID;
         std::cout << "Enter the associated ChangeId of the Change Request: \n";
         cin >> changeID;
@@ -153,13 +152,13 @@ void control_updateItemState() {
         case 0:
             return;
         case 1:
-            ChangeItem::updateStatus(pr.ASSESSED, changeID);
+            ChangeItem::updateStatus(ChangeItem::ASSESSED, changeID);
         case 2: 
-            ChangeItem::updateStatus(pr.INPROGRESS, changeID);
+            ChangeItem::updateStatus(ChangeItem::INPROGRESS, changeID);
         case 3:
-            ChangeItem::updateStatus(pr.DONE, changeID);
+            ChangeItem::updateStatus(ChangeItem::DONE, changeID);
         case 4:
-            ChangeItem::updateStatus(pr.CANCELLED, changeID);
+            ChangeItem::updateStatus(ChangeItem::CANCELLED, changeID);
         default:
             cout << "Invalid selection." << endl;
 
@@ -180,10 +179,10 @@ void control_updateItemPriority() {
     char anotherUpdateItemPriority = 'Y';
     do {
         int changeID;
-        cout << "Enter the associated ChangeId of the Change Request: \n";
+        cout << "Enter the associated ChangeId of the Change Item: ";
         cin >> changeID;
         int newPriority;
-        cout << "Enter a new Priority(number between 1-5): \n";
+        cout << "Enter a new Priority(number between 1-5): ";
         cin >> newPriority;
         ChangeItem::updatePriority(newPriority, changeID);
         std::cout << "Would you like to update another item priority? (Y/N): ";
