@@ -50,10 +50,46 @@ void control_createRelease() {
         if(n == -1){
             return;
         }
-        cout<< "Enter the releaseID: \n";
-        cin >> okay;
-        cout << "Enter the date of the release (YYYY-MM-DD): \n";
-        cin >> date;
+        std::cout << "Enter the release ID (Format: X.X.X.X): ";
+        std::string id;
+        std::cin >> id;
+        bool badId = true;
+        while (badId == true){
+            badId = false;
+            if (id.length() > 7)
+                badId = true;
+            if (!std::isdigit(id[0]) || !std::isdigit(id[2]) || !std::isdigit(id[4]) || !std::isdigit(id[6]))
+                badId = true;
+            if (id[1] != '.' || id[3] != '.' || id[5] != '.')
+                badId = true;
+            if (badId == true){
+                std::cout << "Not a valid release ID. Try again (X.X.X.X): ";
+            std::cin >> id;
+            }
+        }
+        std::strcopy(okay, id);
+        std::string idDate;
+        std::cout << "Enter the date of the release (YYYY-MM-DD): ";
+        std::cin >> idDate;
+        bool badDate = true;
+        while (badDate == true){
+            badDate = false;
+            if (idDate.length() > 10)
+                badDate = true;
+            if (!std::isdigit(idDate[0]) || !std::isdigit(idDate[1]) || !std::isdigit(idDate[2]) || !std::isdigit(idDate[3]) || !std::isdigit(idDate[5]) || !std::isdigit(idDate[6]) || !std::isdigit(idDate[8]) || !std::isdigit(idDate[9]))
+                badDate = true;
+            if (idDate[4] != '-' || idDate[7] != '-')
+                badDate = true;
+            if (badDate == true) {
+                std::cout << "Not a valid date, Try Again (YYYY-MM-DD): ";
+                std::cin >> idDate;
+            }
+        }
+        std::strcopy(date, idDate);
+        //cout<< "Enter the releaseID: \n";
+        //cin >> okay;
+        //cout << "Enter the date of the release (YYYY-MM-DD): \n";
+        //cin >> date;
         const char* charry = Product::getProduct(buffer,n);
         p1.updateName(charry);
         ProductRelease pr(p1, okay, date);
@@ -74,7 +110,7 @@ void control_createRequest() {
     char anotherRequest = 'Y';
     //ChangeItem cc = ChangeItem();
     char buffer[11];
-    std::string smallDate;
+    std::string idDate;
     char name[30];
     Product pr = Product();
     do {
@@ -103,8 +139,22 @@ void control_createRequest() {
             return;
         }
         cout << "Please input the date(YYYY-MM-DD): ";
-        cin >> smallDate;
-        const char* date = smallDate.c_str();
+        std::cin >> idDate;
+        bool badDate = true;
+        while (badDate == true){
+            badDate = false;
+            if (idDate.length() > 10)
+                badDate = true;
+            if (!std::isdigit(idDate[0]) || !std::isdigit(idDate[1]) || !std::isdigit(idDate[2]) || !std::isdigit(idDate[3]) || !std::isdigit(idDate[5]) || !std::isdigit(idDate[6]) || !std::isdigit(idDate[8]) || !std::isdigit(idDate[9]))
+                badDate = true;
+            if (idDate[4] != '-' || idDate[7] != '-')
+                badDate = true;
+            if (badDate == true) {
+                std::cout << "Not a valid date, Try Again (YYYY-MM-DD): ";
+                std::cin >> idDate;
+            }
+        }
+        const char* date = idDate.c_str();
         const char* products = Product::getProduct(buffer, v);
         pr.updateName(products);
         string str(products);
